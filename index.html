@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<!--
+=====================================================================
+ 화순 가을꽃박람회 웹페이지  |  index.html (구조/콘텐츠)
+=====================================================================
+ [파일 구성]
+   index.html      : 구조와 텍스트 (이 파일)
+   css/style.css   : 색상·서체·레이아웃·반응형
+   js/main.js      : 슬라이드, 탭, 아코디언 등 동작
+
+ [수정 가이드 - 빠른 요약]
+   · 텍스트 수정   : 각 SECTION 주석 아래 문구를 직접 수정
+   · 이미지 교체   : <img src="..."> 의 주소만 바꾸면 됩니다.
+                     내 PC 사진 사용 시 images/ 폴더를 만들고 src="images/파일명.jpg"
+   · 공연 일정     : js/main.js 의 PERFORMANCES 데이터 수정
+   · 색상 변경     : css/style.css 맨 위 :root 변수 수정
+   · ※ 날짜/장소/요금/전화번호는 예시값입니다. 공식 정보로 교체하세요.
+=====================================================================
+-->
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>화순 가을꽃박람회 | 가을이 피어나는 곳, 화순</title>
+  <meta name="description" content="화순 가을꽃박람회 - 축제 안내, 주요행사, 공연정보, 오시는길">
+
+  <!-- [서체] Pretendard(본문), Montserrat(영문), 마루부리(메인 타이틀)은 css/style.css 에서 불러옵니다 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600&family=Nanum+Myeongjo:wght@700;800&display=swap">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ===================== HEADER (Sticky) =====================
+ [수정 가이드] 메뉴 추가/삭제: <li> 한 줄 단위. href 는 아래 섹션 id 와 같아야 합니다.
+ 우측 고정 CTA 버튼("축제 일정 확인")은 .header-cta -->
+<header class="site-header" id="header">
+  <div class="header-inner">
+    <a href="#hero" class="logo" aria-label="화순 가을꽃박람회 처음으로">
+      <span class="logo-en">HWASUN</span><span class="logo-ko">화순 가을꽃박람회</span>
+    </a>
+
+    <nav class="gnb" id="gnb" aria-label="주요 메뉴">
+      <ul>
+        <li><a href="#about">축제안내</a></li>
+        <li><a href="#events">주요행사</a></li>
+        <li><a href="#performance">공연정보</a></li>
+        <li><a href="#location">오시는길</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </nav>
+
+    <a href="#about" class="header-cta">축제 일정 확인</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="메뉴 열기" aria-expanded="false" aria-controls="gnb">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main>
+
+<!-- ===================== SECTION 1. HERO =====================
+ [수정 가이드]
+  · 배경 이미지: .hero-slide 안의 <img> src 교체 (슬라이드 추가는 <figure class="hero-slide"> 복사)
+  · 축제명/메인 카피/기간/장소: .hero-copy 안 텍스트 수정
+  · 슬라이드 전환 간격: js/main.js 의 HERO_INTERVAL -->
+<section class="hero" id="hero">
+  <div class="hero-slides" aria-hidden="true">
+    <figure class="hero-slide is-active">
+      <img src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=1800&q=70" alt="가을꽃이 가득 핀 정원">
+    </figure>
+    <figure class="hero-slide">
+      <img src="https://images.unsplash.com/photo-1468327768560-75b778cbb551?auto=format&fit=crop&w=1800&q=70" alt="들판에 핀 가을꽃">
+    </figure>
+    <figure class="hero-slide">
+      <img src="https://images.unsplash.com/photo-1470509037663-253afd7f0f51?auto=format&fit=crop&w=1800&q=70" alt="따뜻한 햇살 아래 꽃밭">
+    </figure>
+  </div>
+  <div class="hero-overlay"></div>
+
+  <div class="hero-copy">
+    <p class="hero-en">AUTUMN FLOWER EXPO</p>
+    <h1 class="hero-title">가을이 피어나는 곳, 화순</h1>
+    <p class="hero-name">화순 가을꽃박람회</p>
+    <ul class="hero-meta">
+      <li><strong>기간</strong> 2026.10.09 (금) ~ 10.25 (일) <em></em></li>
+      <li><strong>장소</strong> 전남광주 화순군 도곡면 효산리 156 <em></em></li>
+    </ul>
+    <a href="#about" class="btn btn-primary" id="heroCta">축제 자세히 보기</a>
+  </div>
+
+  <div class="hero-dots" id="heroDots" aria-label="메인 이미지 선택"></div>
+</section>
+
+<!-- ===================== SECTION 2. 축제안내 =====================
+ [수정 가이드] 정보 카드는 <article class="info-card"> 단위. 추가/삭제 가능.
+  · 배경: 아이보리 + 곡선(.curve-top) -->
+<section class="section about" id="about">
+  <div class="container">
+    <p class="eyebrow">ABOUT FESTIVAL</p>
+    <h2 class="section-title">축제안내</h2>
+    <p class="section-lead">
+      붉고 노란 가을꽃이 화순의 들녘을 물들입니다.<br>
+      천천히 걸으며 꽃과 햇살을 만나는 가장 따뜻한 계절의 박람회입니다.
+    </p>
+
+    <div class="about-grid">
+      <figure class="about-photo">
+        <img src="imgs/전경드론샷.png">      </figure>
+      <div class="info-cards">
+        <article class="info-card"><h3>축제 기간</h3><p>2026.10.09 ~ 10.25 (17일간)</p></article>
+        <article class="info-card"><h3>축제 장소</h3><p>전남광주 화순군 도곡면 효산리 156</p></article>
+        <article class="info-card"><h3>운영시간</h3><p>09:00 ~ 18:00<br>야간 개장 ~ 21:00 (주말)</p></article>
+        <article class="info-card"><h3>입장 안내</h3><p>성인 5,000원 / 청소년 3,000원<br>미취학 아동 무료 </p></article>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SECTION 3. 주요행사 =====================
+ [수정 가이드] 행사 카드는 <article class="event-card">. 이미지(src)·제목(h3)·상세(.event-detail) 수정.
+  · 데스크톱: 마우스 오버 시 이미지 확대 + 상세 표시 / 모바일: 카드를 탭하면 상세 표시 -->
+<section class="section events" id="events">
+  <div class="container">
+    <p class="eyebrow">EVENTS &amp; PROGRAMS</p>
+    <h2 class="section-title">주요행사</h2>
+    <p class="section-lead">"보고, 즐기고, 추억하는 화순 가을꽃축제의 다채로운 오감만족 프로그램!"</p>
+
+    <div class="event-grid">
+      <article class="event-card" tabindex="0">
+        <img src="imgs/국화꽃 클로즈업.png">
+        <div class="event-body"><h3>가을꽃 정원</h3><p class="event-detail">코스모스, 국화, 댑싸리 등 가을꽃 20여 종이 이어지는 산책 정원입니다.</p></div>
+      </article>
+      <article class="event-card" tabindex="0">
+        <img src="imgs/메인포토존.jfif" >
+        <div class="event-body"><h3>가을꽃 포토존</h3><p class="event-detail">포토존 5곳 운영. 해 질 무렵 노을빛 아래가 가장 예쁘게 나옵니다.</p></div>
+      </article>
+      <article class="event-card" tabindex="0">
+        <img src="imgs/화분.png">
+        <div class="event-body"><h3>플라워 체험</h3><p class="event-detail">나만의 국화 화분 만들기. 현장 접수 가능합니다.</p></div>
+      </article>
+      <article class="event-card" tabindex="0">
+        <img src="imgs/가을 피크닉 감성 존.jfif">
+        <div class="event-body"><h3>가을 피크닉</h3><p class="event-detail">잔디 피크닉존에서 돗자리와 간식을 즐기세요. 대여 서비스가 있습니다.</p></div>
+      </article>
+      <article class="event-card" tabindex="0">
+        <img src="imgs/고인돌 선사체험.jpg">
+        <div class="event-body"><h3>고인돌 선사체험장</h3><p class="event-detail">화순 고인돌 선사시대의 생활 방식을 직접 체험할 수 있는 참여형 공간으로 운영됩니다.</p></div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SECTION 4. 공연정보 =====================
+ [수정 가이드] 공연 데이터는 js/main.js 의 PERFORMANCES 배열에서 수정합니다.
+  · 이 영역(#dateTabs, #timeline)은 JS가 자동으로 채웁니다.
+  · 배경: 딥그린 -->
+<section class="section performance" id="performance">
+  <div class="container">
+    <p class="eyebrow">LIVE PERFORMANCES</p>
+    <h2 class="section-title">공연정보</h2>
+    <p class="section-lead">날짜를 선택하면 그날의 공연 일정이 표시됩니다.</p>
+
+    <div class="date-tabs" id="dateTabs" role="tablist" aria-label="공연 날짜 선택"></div>
+    <ol class="timeline" id="timeline" aria-live="polite"></ol>
+  </div>
+</section>
+
+<!-- ===================== SECTION 5. 오시는길 =====================
+ [수정 가이드]
+  · 지도: <iframe> 의 src (OpenStreetMap 임베드). 다른 위치는 bbox 와 marker 좌표(위도,경도)를 변경.
+    카카오/네이버/구글 지도 임베드 코드로 교체해도 됩니다.
+  · 교통 정보: .transport-panel 안 텍스트 수정 (탭 3개: 자가용/대중교통/주차) -->
+<section class="section location" id="location">
+  <div class="container">
+    <p class="eyebrow">LOCATION &amp; TRANSPORTATION</p>
+    <h2 class="section-title">오시는길</h2>
+
+    <div class="location-grid">
+      <div class="map-wrap">
+        <iframe title="축제장 위치 지도" loading="lazy"
+          src="https://www.openstreetmap.org/export/embed.html?bbox=126.95%2C35.04%2C127.02%2C35.09&amp;layer=mapnik&amp;marker=35.0645%2C126.9865"></iframe>
+      </div>
+
+      <div class="transport">
+        <div class="transport-tabs" role="tablist" aria-label="교통수단 선택">
+          <button role="tab" class="is-active" data-target="tp-car" aria-selected="true">🚗 자가용</button>
+          <button role="tab" data-target="tp-bus" aria-selected="false">🚌 대중교통</button>
+          <button role="tab" data-target="tp-park" aria-selected="false">🅿 주차</button>
+        </div>
+        <div class="transport-panel is-active" id="tp-car" role="tabpanel">
+          <h3>자가용 이용 안내</h3>
+          <p>내비게이션에 “화순군청”을 검색해 주세요. </p>
+          <p>광주 도심에서 약 30분, 호남고속도로 동광주IC 이용 시 약 40분 소요됩니다.</p>
+        </div>
+        <div class="transport-panel" id="tp-bus" role="tabpanel">
+          <h3>대중교통 이용 안내</h3>
+          <p>광주 유스퀘어 터미널에서 화순행 시외버스 이용 후 축제장 셔틀버스로 환승합니다. </p>
+          <p>축제 기간 주말에는 셔틀버스를 20분 간격으로 운행합니다.</p>
+        </div>
+        <div class="transport-panel" id="tp-park" role="tabpanel">
+          <h3>주차장 위치 및 안내</h3>
+          <p>제1주차장(정문 앞), 제2주차장(셔틀 연계)을 운영합니다. 주차료는 무료입니다. </p>
+          <p>주말 오전 11시 이후에는 혼잡하니 제2주차장을 이용해 주세요.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== SECTION 6. FAQ =====================
+ [수정 가이드] 질문 추가: <div class="faq-item"> 블록 전체를 복사해 문구만 교체. 동작은 JS가 자동 처리 -->
+<section class="section faq" id="faq">
+  <div class="container narrow">
+    <p class="eyebrow">FAQ</p>
+    <h2 class="section-title">자주 묻는 질문</h2>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false"><span>입장료는 얼마인가요?</span><i class="plus" aria-hidden="true"></i></button>
+        <div class="faq-a"><p>성인 5,000원, 청소년 3,000원이며 미취학 아동은 무료입니다. 화순군민 할인이 있습니다. </p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false"><span>주차장은 이용할 수 있나요?</span><i class="plus" aria-hidden="true"></i></button>
+        <div class="faq-a"><p>무료 주차장 2곳을 운영하며, 주말에는 제2주차장과 셔틀버스를 이용하시면 편리합니다.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false"><span>반려동물과 함께 갈 수 있나요?</span><i class="plus" aria-hidden="true"></i></button>
+        <div class="faq-a"><p>목줄을 착용하면 야외 정원 구역에 동반 가능합니다. 실내 체험관은 출입이 제한됩니다.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false"><span>비가 오면 행사가 진행되나요?</span><i class="plus" aria-hidden="true"></i></button>
+        <div class="faq-a"><p>우천 시 야외 공연은 일정이 변경될 수 있고, 실내 체험은 정상 운영합니다. 공식 홈페이지 공지를 확인해 주세요.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false"><span>체험 프로그램은 어떻게 신청하나요?</span><i class="plus" aria-hidden="true"></i></button>
+        <div class="faq-a"><p>현장 접수처에서 선착순으로 신청합니다. 단체 신청은 사전 전화 문의가 필요합니다.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" aria-expanded="false"><span>운영시간과 문의처는 어디인가요?</span><i class="plus" aria-hidden="true"></i></button>
+        <div class="faq-a"><p>매일 09:00~18:00 운영합니다. 문의: 000-000-0000 </p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ===================== SECTION 7. FOOTER / CLOSING =====================
+ [수정 가이드] 배경 이미지: .closing-bg 의 <img> src / 메인 카피: .closing-copy / SNS 링크: href 교체 -->
+<footer class="closing">
+  <div class="closing-bg"><img src="https://images.unsplash.com/photo-1470509037663-253afd7f0f51?auto=format&fit=crop&w=1800&q=60" alt="" loading="lazy"></div>
+  <div class="closing-overlay"></div>
+
+  <div class="closing-inner">
+    <p class="closing-copy">꽃이 피는 계절,<br>우리의 가을도 피어납니다.</p>
+    <a href="#about" class="btn btn-primary" id="footerCta">축제 일정 확인</a>
+
+    <div class="footer-info">
+      <p><strong>화순 가을꽃박람회</strong></p>
+      <p>기간 2026.10.09 ~ 10.25 · 장소 전남 화순군 · 문의 000-000-0000 <em></em></p>
+      <p class="links">
+        <a href="https://www.hwasun.go.kr" target="_blank" rel="noopener">공식 홈페이지</a>
+        <a href="https://www.instagram.com" target="_blank" rel="noopener">Instagram</a>
+        <a href="https://www.youtube.com" target="_blank" rel="noopener">YouTube</a>
+      </p>
+      <p class="copy">© <span id="year">2026</span> Hwasun Autumn Flower Expo. 학습용 예시 페이지.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+</body>
+</html>
